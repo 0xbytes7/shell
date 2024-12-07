@@ -69,16 +69,12 @@ function show_login_page($message = "")
             <input type="submit" value="Enter">
         </form>
     </div>
-
     <script>
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.className = 'snowflake';
-            
-            // Pilih warna acak antara putih atau ungu
-            const colors = ['white', 'purple']; // Menambahkan warna ungu
+            const colors = ['white', 'purple']; 
             snowflake.style.background = colors[Math.floor(Math.random() * colors.length)];
-            
             snowflake.style.left = Math.random() * 100 + 'vw';
             snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
             snowflake.style.opacity = Math.random();
@@ -88,7 +84,6 @@ function show_login_page($message = "")
                 snowflake.remove();
             }, 5000); 
         }
-
         setInterval(createSnowflake, 100);
     </script>
 </body>
